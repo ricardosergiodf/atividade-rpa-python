@@ -7,43 +7,16 @@ in order to get all the dependencies on your Python environment.
 from botcity.web import WebBot, Browser, By
 from botcity.maestro import *
 import logging
-from datetime import datetime
-
-# Configuração do logging para sobrescrever log.txt
-logging.basicConfig(
-    filename='log.txt',  # Nome do arquivo de log
-    filemode='w',        # 'w' para sobrescrever a cada execução
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",  # Data - Nivel do log (INFO, WARNING, ERROR) - Mensagem
-    datefmt="%d/%m/%Y %H:%M:%S"
-)
+from functions import setup_logging, login
 
 BotMaestroSDK.RAISE_NOT_CONNECTED = False
 
-# Função que realiza o login
-def login(username, password, login_field, password_field, submit_btn, bot, maestro, execution, counter):
-    logging.info(f"{counter}a tentativa de login.")
-    try:
-        login_field.send_keys(username)
-        password_field.send_keys(password)
-        submit_btn.click()
-        successful_login = bot.find_element(".post-title", By.CSS_SELECTOR)
-        if successful_login:
-            bot.save_screenshot("resultados.png")
-            logging.error(f"Login feito com sucesso. {username}, {password}")
-            return True
-        else:
-            logging.error(f"Erro ao tentar realizar o login.")
-            return False
-    except Exception as e:
-        logging.error(f"Erro fatal na execucao do login: {e}")
-        if maestro:
-            maestro.error(task_id=execution.task_id, exception=e)
-        return False
-
 def main():
+    setup_logging()
     maestro = BotMaestroSDK.from_sys_args()
     execution = maestro.get_execution()
+
+    logging.info("Inicio - AP-1-RPA-Python")
 
     if execution.task_id == 0:
         logging.info("Maestro desativado -> Executando localmente")
@@ -54,10 +27,9 @@ def main():
     bot.browser = Browser.CHROME
     bot.driver_path = r"C:\Users\ricar\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe"
 
-    logging.info("Inicio - AP-1-RPA-Python")
-
     is_incorrect_login = execution.parameters.get("is_incorrect_login")
     # is_incorrect_login = "y"
+
     logging.info(f"Processo iniciado com {'Login Correto' if is_incorrect_login == 'n' else 'Login Incorreto'} como parametro.")
 
     url = "https://practicetestautomation.com/practice-test-login/"
@@ -65,30 +37,27 @@ def main():
     logging.info(f"Abrindo navegador no: {url}")
 
     if is_incorrect_login == "n":
-        # Obtem o username e password corretos
+        # Obtem o Login correto
         try:
-            username = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/ul[1]/li[2]/b[1]", By.XPATH)
-            password = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/ul[1]/li[2]/b[2]", By.XPATH)
-            username = username.text
-            password = password.text
-            logging.info(f"Username e Password capturados.")
+            username = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/ul[1]/li[2]/b[1]", By.XPATH).text
+            password = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/ul[1]/li[2]/b[2]", By.XPATH).text
+            logging.info("Username e Password capturados.")
         except Exception as e:
-            logging.error(error)
+            logging.error(e)
             if maestro:
                 maestro.error(task_id=execution.task_id, exception=e)
     elif is_incorrect_login == "y":
-        # Obtem o username incorreto e password
+        # Obtem o Login incorreto
         try:
-            username = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/ol[2]/li[2]/b[1]", By.XPATH)
-            password = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/ul[1]/li[2]/b[2]", By.XPATH)
-            username = username.text
-            password = password.text
-            logging.info(f"Username e Password capturados.")
+            username = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/ol[2]/li[2]/b[1]", By.XPATH).text
+            password = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/ul[1]/li[2]/b[2]", By.XPATH).text
+            logging.info("Username e Password capturados.")
         except Exception as e:
-            logging.error(error)
+            logging.error(e)
             if maestro:
                 maestro.error(task_id=execution.task_id, exception=e)
     else:
+        # Erro caso tenha sido passado um parâmetro incorreto
         error = "Incorrect Parameter"
         logging.error(error)
         if maestro:
@@ -100,25 +69,15 @@ def main():
             )
         bot.stop_browser()
         return
-        
-    # print(username, password)
 
-    # Obtem os campos de login field e password field
+    # Obtem os campos de login field, password field e botão de submit
     try:
         login_field = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/div[1]/div[1]/input[1]", By.XPATH)
         password_field = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/div[1]/div[2]/input[1]", By.XPATH)
-        logging.info(f"Campos de login field e password field capturados.")
-    except Exception as e:
-        logging.error(error)
-        if maestro:
-            maestro.error(task_id=execution.task_id, exception=e)
-
-    # Obtem o botão de submit
-    try:
         submit_btn = bot.find_element("/html[1]/body[1]/div[1]/div[1]/section[1]/section[1]/div[1]/button[1]", By.XPATH)
-        logging.info(f"Botao de submit capturado.")
+        logging.info("Campos de login field, password field e botao de submit capturados.")
     except Exception as e:
-        logging.error(error)
+        logging.error(e)
         if maestro:
             maestro.error(task_id=execution.task_id, exception=e)
 
@@ -149,10 +108,10 @@ def main():
         logging.info(f"Resultado da tentativa {counter}: {'Login feito com sucesso' if result else 'Login falhou'}")
         if maestro:
             maestro.alert(
-            task_id=execution.task_id,
-            title=f"Attempt {counter}",
-            message=f"Started attempt {counter}.",
-            alert_type=AlertType.INFO
+                task_id=execution.task_id,
+                title=f"Attempt {counter}",
+                message=f"Started attempt {counter}.",
+                alert_type=AlertType.INFO
             )
         if result:
             if maestro:
@@ -168,7 +127,6 @@ def main():
                 )
             break
         else:
-            # Obtem o erro
             error = bot.find_element("#error", By.CSS_SELECTOR)
             logging.info("Elemento de erro do login capturado.")
             if maestro:
@@ -187,21 +145,18 @@ def main():
                     message="All login attempts failed."
                 )
             bot.stop_browser()
-        
-    maestro.alert(
+    if maestro:
+        maestro.alert(
             task_id=execution.task_id,
             title=f"Process Ended",
-            message=f"Process Ended - Success AP-1-RPA-Python.",
+            message="Process Ended - Success AP-1-RPA-Python.",
             alert_type=AlertType.INFO
-    )
+        )
     logging.info("Processo Finalizado - Sucesso AP-1-RPA-Python.")
     bot.stop_browser()
 
-
 def not_found(label):
-
     print(f"Element not found: {label}")
-
 
 if __name__ == '__main__':
     main()

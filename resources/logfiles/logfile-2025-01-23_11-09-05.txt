@@ -1,0 +1,20 @@
+23/01/2025 11:09:05 - INFO - Inicio - AP-1-RPA-Python
+23/01/2025 11:09:05 - INFO - Maestro desativado -> Executando localmente
+23/01/2025 11:09:05 - INFO - Processo iniciado com Login Incorreto como parametro.
+23/01/2025 11:09:07 - INFO - Abrindo navegador no: https://practicetestautomation.com/practice-test-login/
+23/01/2025 11:09:07 - INFO - Username e Password capturados.
+23/01/2025 11:09:07 - INFO - Campos de login field, password field e botao de submit capturados.
+23/01/2025 11:09:07 - INFO - 1a tentativa de login.
+23/01/2025 11:09:17 - ERROR - Erro ao tentar realizar o login. Username: incorrectUser, Password: Password123
+23/01/2025 11:09:17 - INFO - Resultado da tentativa 1: Login falhou
+23/01/2025 11:09:17 - INFO - Elemento de erro do login capturado.
+23/01/2025 11:09:17 - INFO - 2a tentativa de login.
+23/01/2025 11:09:28 - ERROR - Erro ao tentar realizar o login. Username: incorrectUser, Password: Password123
+23/01/2025 11:09:28 - INFO - Resultado da tentativa 2: Login falhou
+23/01/2025 11:09:28 - INFO - Elemento de erro do login capturado.
+23/01/2025 11:09:28 - INFO - 3a tentativa de login.
+23/01/2025 11:09:38 - ERROR - Erro ao tentar realizar o login. Username: incorrectUser, Password: Password123
+23/01/2025 11:09:38 - INFO - Resultado da tentativa 3: Login falhou
+23/01/2025 11:09:38 - INFO - Elemento de erro do login capturado.
+23/01/2025 11:09:38 - WARNING - Todas as tentativas de login falharam.
+23/01/2025 11:09:40 - INFO - Processo Finalizado - Sucesso AP-1-RPA-Python.

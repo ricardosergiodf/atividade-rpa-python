@@ -1,0 +1,10 @@
+23/01/2025 11:08:49 - INFO - Inicio - AP-1-RPA-Python
+23/01/2025 11:08:49 - INFO - Maestro desativado -> Executando localmente
+23/01/2025 11:08:49 - INFO - Processo iniciado com Login Correto como parametro.
+23/01/2025 11:08:51 - INFO - Abrindo navegador no: https://practicetestautomation.com/practice-test-login/
+23/01/2025 11:08:51 - INFO - Username e Password capturados.
+23/01/2025 11:08:51 - INFO - Campos de login field, password field e botao de submit capturados.
+23/01/2025 11:08:51 - INFO - 1a tentativa de login.
+23/01/2025 11:08:52 - INFO - Login feito com sucesso. Username: student, Password: Password123.
+23/01/2025 11:08:52 - INFO - Resultado da tentativa 1: Login feito com sucesso
+23/01/2025 11:08:52 - INFO - Processo Finalizado - Sucesso AP-1-RPA-Python.

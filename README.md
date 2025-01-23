@@ -1,6 +1,6 @@
 # Projeto de Automação de Login 🚀
 
-Este projeto automatiza o processo de login em um site de teste, utilizando o framework BotCity para controle de navegador e o BotMaestro para gerenciamento de tarefas.
+Este projeto automatiza o processo de login em um site de teste, utilizando Python e o framework BotCity.
 
 ## 📋 Requisitos
 
@@ -20,8 +20,9 @@ pip install --upgrade -r requirements.txt
 ## 📂 Estrutura do Projeto
 
 - `bot.py`: Código principal que executa a automação.
+- `functions.py`: Código de funções utilizadas.
 - `requirements.txt`: Lista de dependências necessárias.
-- `log.txt`: Arquivo de log gerado automaticamente.
+- `resources/logfiles/logfile.txt`: Arquivo de log gerado automaticamente a cada execução.
 - `resultados.png`: Captura de tela após o login bem-sucedido.
 
 ## 🚀 Como Executar
@@ -36,7 +37,7 @@ pip install --upgrade -r requirements.txt
    ```
 3. Execute o script Python:
    ```bash
-   python main.py
+   python bot.py
    ```
 
 ## ⚙️ Configuração
@@ -59,7 +60,7 @@ Caso o login seja bem-sucedido, uma captura de tela será salva automaticamente 
 
 ## 🧪 Testando Diferentes Cenários
 
-Para testar logins corretos ou incorretos, ajuste o parâmetro `is_incorrect_login` no código.
+Para testar logins corretos ou incorretos, ajuste o parâmetro `is_incorrect_login` no código ou via Orchestrator no BotCity.
 - `is_incorrect_login = "n"` → Testa login correto ✅
 - `is_incorrect_login = "y"` → Testa login incorreto ❌
 
