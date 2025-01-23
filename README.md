@@ -29,7 +29,7 @@ pip install --upgrade -r requirements.txt
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-repositorio.git
+   git clone https://github.com/atividade-rpa-python
    ```
 2. Instale as dependências:
    ```bash
