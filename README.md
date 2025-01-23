@@ -19,7 +19,7 @@ pip install --upgrade -r requirements.txt
 
 ## 📂 Estrutura do Projeto
 
-- `main.py`: Código principal que executa a automação.
+- `bot.py`: Código principal que executa a automação.
 - `requirements.txt`: Lista de dependências necessárias.
 - `log.txt`: Arquivo de log gerado automaticamente.
 - `resultados.png`: Captura de tela após o login bem-sucedido.
