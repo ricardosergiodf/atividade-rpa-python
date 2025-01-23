@@ -158,7 +158,7 @@ def main():
             if maestro:
                 maestro.post_artifact(
                     task_id=execution.task_id,
-                    artifact_name=f"Successfull Login.",
+                    artifact_name=f"Successful Login.",
                     filepath="resultados.png"
                 )
                 maestro.finish_task(
