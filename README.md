@@ -74,6 +74,6 @@ Desenvolvido por Ricardo Duarte. ✉️ ricardosergiodf@gmail.com
 
 ---
 
-README.me feito por IA (poupar tempo é sempre bom)
+README.md feito por IA (poupar tempo é sempre bom)
 Enjoy coding! 💻
 
